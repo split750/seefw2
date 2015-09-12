@@ -1,5 +1,6 @@
 /node_modules
-server.js.logs
-server.js.debug
+app.js.logs
+app.js.debug
 settings.json
 node_modules
+npm-debug.log

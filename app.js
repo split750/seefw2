@@ -77,7 +77,9 @@ var debug = require('debug')('Start');
 
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
+var server = require('http').createServer();
+
+server.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
 

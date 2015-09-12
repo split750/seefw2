@@ -10,8 +10,19 @@ var passport = require('passport');
 require('./models/models');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
-var mongoose = require('mongoose');                         //add for Mongo support
-mongoose.connect('mongodb://localhost/test-chirp');              //connect to Mongo
+
+
+//  Mongoose connection //
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://MongoLabDTPEfW:V9kjSsLbyGMFd9kwpaJPTUYqzWKUs.qqb43nMRuqj6U-@ds036178.mongolab.com:36178/MongoLabDTPEfW');  //connect to Mongo
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));  
+var dbOpened = db.once('open', function() {
+    // Wait for the database connection to establish, then start the app.  
+    console.log('connection to mongolab OK');   
+});
+
+
 var app = express();
 
 // view engine setup

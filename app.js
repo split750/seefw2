@@ -6,9 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
+//initialize mongoose schemas
+require('./models/models');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
-
+var mongoose = require('mongoose');                         //add for Mongo support
+mongoose.connect('mongodb://localhost/test-chirp');              //connect to Mongo
 var app = express();
 
 // view engine setup
@@ -19,9 +22,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
+  secret: 'keyboard cat'
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -78,8 +79,4 @@ var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
 
-
 module.exports = app;
-
-
-

@@ -1,4 +1,4 @@
-var app = angular.module('chirpApp', ['ngRoute', 'ngResource']).run(function($http, $rootScope) {
+var app = angular.module('SuezEfWApp', ['ngRoute', 'ngResource']).run(function($http, $rootScope) {
 	$rootScope.authenticated = false;
 	$rootScope.current_user = 'Guest';
 
@@ -9,24 +9,40 @@ var app = angular.module('chirpApp', ['ngRoute', 'ngResource']).run(function($ht
 	};
 });
 
+/*
 app.config(function($routeProvider){
 	$routeProvider
-		//the timeline display
 		.when('/', {
-			templateUrl: 'main.html',
+			templateUrl: 'views/home.html'
+		})
+		.when('/plants/new', {
+			templateUrl: 'views/plant/new.html',
+			controller: 'plantController'
+		})
+		.when('/plants', {
+			templateUrl: 'views/plant/index.html',
+			controller: 'plantController'
+		})
+		//the timeline display
+		.when('/chrip', {
+			templateUrl: 'views/main.html',
 			controller: 'mainController'
 		})
 		//the login display
 		.when('/login', {
-			templateUrl: 'login.html',
+			templateUrl: 'views/login.html',
 			controller: 'authController'
 		})
 		//the signup display
 		.when('/signup', {
-			templateUrl: 'signup.html',
+			templateUrl: 'views/signup.html',
 			controller: 'authController'
+		})
+		.when('/about', {
+			templateUrl: 'views/about.html'
 		});
 });
+*/
 
 /*
 //used for basic read from json
@@ -95,4 +111,12 @@ app.controller('authController', function($scope, $http, $rootScope, $location){
 			}
 		});
 	};
+});
+
+app.controller('plantsController', function($scope, $rootScope, postService){
+  
+  $scope.posts = postService.query();
+  
+  $scope.search = {};
+
 });

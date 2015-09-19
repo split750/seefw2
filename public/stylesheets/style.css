@@ -35,3 +35,9 @@ a {
 	padding: 5px;
 	margin: 0 auto;
 }
+
+.logo img {
+	position: relative;
+	top: -17px;
+	width: 180px;
+}

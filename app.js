@@ -14,7 +14,7 @@ var authenticate = require('./routes/authenticate')(passport);
 
 //  Mongoose connection //
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://MongoLabDTPEfW:V9kjSsLbyGMFd9kwpaJPTUYqzWKUs.qqb43nMRuqj6U-@ds036178.mongolab.com:36178/MongoLabDTPEfW');  //connect to Mongo
+mongoose.connect('mongodb://MongoLab-seefw:JvdB_3NHPCouZqzQ8RhZa1puzw3SY8EFBtK1uIq.EVg-@ds040888.mongolab.com:40888/MongoLab-seefw');  //connect to Mongo
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));  
 var dbOpened = db.once('open', function() {

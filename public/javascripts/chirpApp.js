@@ -64,6 +64,8 @@ app.controller('mainController', function($scope, $rootScope, postService){
 		$scope.posts = postService.query();
 	};
 });
+
+
 app.controller('authController', function($scope, $http, $rootScope, $location){
 	$scope.user = {username: '', password: ''};
 	$scope.error_message = '';

@@ -4,13 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var bcrypt = require('bcrypt');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-//global.passport = passport;
 var session = require('express-session');
-var mongoose = require('mongoose');                         //add for Mongo support
-var models = require('./models/models.js');                 //mongoose schemas
+var passport = require('passport');
+//initialize mongoose schemas
+require('./models/models');
+var api = require('./routes/api');
+var authenticate = require('./routes/authenticate')(passport);
+
 
 //  Mongoose connection //
 var mongoose = require('mongoose');
@@ -22,10 +22,6 @@ var dbOpened = db.once('open', function() {
     console.log('connection to mongolab OK');   
 });
 
-//import the routers
-var index = require('./routes/index');
-var api = require('./routes/api');
-var authenticate = require('./routes/authenticate')(passport);
 
 var app = express();
 
@@ -37,7 +33,9 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-  secret: 'keyboard cat'
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,14 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//register routers to root paths
-app.use('/', index);
-app.use('/api', api);
 app.use('/auth', authenticate);
-
-//// Initialize Passport
-var initPassport = require('./passport-init');
-initPassport(passport);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,6 +53,12 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+//// Initialize Passport
+var initPassport = require('./passport-init');
+initPassport(passport);
+
+// error handlers
 
 // development error handler
 // will print stacktrace
@@ -83,6 +81,10 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
+
+
 
 var debug = require('debug')('chirp:server');
 var http = require('http');

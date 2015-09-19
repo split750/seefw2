@@ -22,8 +22,8 @@ app.config(function($routeProvider){
 			controller: 'authController'
 		})
 		//the signup display
-		.when('/register', {
-			templateUrl: 'register.html',
+		.when('/signup', {
+			templateUrl: 'signup.html',
 			controller: 'authController'
 		});
 });
@@ -31,7 +31,7 @@ app.config(function($routeProvider){
 /*
 //used for basic read from json
 app.factory('postService', function($http){
-	var baseUrl = "/api/posts";
+	var baseUrl = "sample.json";
 	var factory = {};
 	factory.getAll = function(){
 		return $http.get(baseUrl);
@@ -45,7 +45,7 @@ app.factory('postService', function($resource){
 
 app.controller('mainController', function($scope, $rootScope, postService){
 	$scope.posts = postService.query();
-	$scope.newPost = {created_by: '', text: '', created_at: ''};
+	$scope.newPost = "";
 /*
 //used for basic read from json
 	postService.getAll().success(function(data){
@@ -53,11 +53,10 @@ app.controller('mainController', function($scope, $rootScope, postService){
 	});
 */
 	$scope.post = function() {
-		$scope.newPost.created_by = $rootScope.current_user;
-		$scope.newPost.created_at = Date.now();
-		postService.save($scope.newPost}, function(){
+		postService.save({created_by: $rootScope.current_user, text: $scope.newPost, created_at: Date.now()}, 
+		function(){
 			$scope.posts = postService.query();
-			$scope.newPost = {created_by: '', text: '', created_at: ''};
+			$scope.newPost = "";	
 		});
 	};
 	$scope.delete = function(post)	{

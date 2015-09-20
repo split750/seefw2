@@ -13,24 +13,35 @@
 		<link rel="stylesheet" href="/stylesheets/style.css">
 	</head>
 	<body>
-		<div id='main'>
-			<nav class="navbar-fluid navbar-default navbar-fixed-top">
-				<div class="container-fluid">
+		<div id='main' class="container-fluid">
+			<div class="col-lg-8 col-lg-offset-2">
+				<nav class="navbar-fluid navbar-default navbar-fixed-top">
 					<div class="navbar-header">
 						<a class="navbar-brand logo" href="/#/" title="Suez EfW App">
 				            <img src="images/logo.png" alt="Suez EfW App">
 				        </a>
-						<p class="navbar-text">Discover the Energy from waste busniess with this app</p>
 					</div>
 					<nw-page-nav></nw-page-nav>
-					<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
-					<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
-					<p class="navbar-right navbar-text">Signed in as {{current_user}}</p>
-				</div>	
-			</nav>
-			<div ng-view class="container-fluid">
+					<div class="nav navbar-nav navbar-right">
+						<ul class="nav navbar-nav">
+							<li class="navbar-text">Signed in as {{current_user}} </li>
+						</ul>
+						<a ng-hide="authenticated" class="btn btn-default navbar-btn navbar-left" href="#/login">Login</a>
+						<ul class="nav navbar-nav" ng-hide="authenticated">
+							<li class="navbar-text" ng-hide="authenticated">or</li>
+						</ul>
+						<a ng-hide="authenticated" class="btn btn-default navbar-btn navbar-left" href="#/signup">Register</a>
+						<a ng-show="authenticated" class="btn btn-default navbar-btn navbar-left" href="#" ng-click="signout()">Logout</a>
+					</div>
+				</nav>
+				<div ng-view>
+				</div>
 			</div>
 		</div>
+
+		<footer class="footer">
+			
+		</footer>
 	</body>
 
 	<!-- Router -->
